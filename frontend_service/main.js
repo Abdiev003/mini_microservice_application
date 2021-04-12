@@ -1,10 +1,10 @@
 async function renderPost(post){
-    let comments = await getComments(post.id)
+    // let commentList = await getComments(post.id)
+    let comments = post.comments
     return `<div class="col-md-3 mb-4">
                     <div class="card" style="background-color: #dae8fc;">
                         <div class="card-body">
                             <h3 class="card-title">${post.title}</h3>
-                            <span class="p-2">${comments ? comments.length : '0'} comments</span>
                             <ul class="ms-3">
                                ${comments ? comments.map(comment => `<li>${comment.content}</li>`).join(' ') : ''}
                             </ul>
@@ -22,7 +22,7 @@ async function renderPost(post){
 async function getComments(post_id) {
     let response = await fetch(`http://localhost:5002/api/v1.0/posts/${post_id}/comments/`)
     let commentData = await response.json()
-    return commentData.comments
+    return commentData
 
 }
 
@@ -89,6 +89,6 @@ formPost.addEventListener('submit', async function (e){
     })
 
     let data = await response.json()
-    console.log(data)
-    document.getElementById('post_list').append()
+    let htmlContent = await renderPost(data)
+    document.getElementById('post_list').innerHTML += htmlContent
 })
