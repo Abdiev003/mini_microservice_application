@@ -1,6 +1,8 @@
 from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 API_VERSION = 'v1.0'
 API_PREFIX = f'api/{API_VERSION}'

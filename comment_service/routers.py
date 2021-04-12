@@ -14,6 +14,6 @@ def comments_api(post_id):
         return jsonify(create_comment), 201
 
     comments = get_post_comments(post_id)
-    if not comments:
-        return jsonify({'message': 'Not found'}), 404
+    # if not comments:
+    #     return jsonify({'message': 'Not found'}), 404
     return jsonify(comments), 200
