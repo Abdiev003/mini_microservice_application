@@ -5,6 +5,7 @@ async function renderPost(post){
                     <div class="card" style="background-color: #dae8fc;">
                         <div class="card-body">
                             <h3 class="card-title">${post.title}</h3>
+                            <span>${comments ? comments.length : "0"} comments</span>
                             <ul class="ms-3">
                                ${comments ? comments.map(comment => `<li>${comment.content}</li>`).join(' ') : ''}
                             </ul>
@@ -19,15 +20,15 @@ async function renderPost(post){
 }
 
 
-async function getComments(post_id) {
-    let response = await fetch(`http://localhost:5002/api/v1.0/posts/${post_id}/comments/`)
-    let commentData = await response.json()
-    return commentData
-
-}
+// async function getComments(post_id) {
+//     let response = await fetch(`http://localhost:5002/api/v1.0/posts/${post_id}/comments/`)
+//     let commentData = await response.json()
+//     return commentData
+//
+// }
 
 async function getPosts() {
-    let response = await fetch('http://localhost:5001/api/v1.0/posts/')
+    let response = await fetch('http://localhost:5000/api/v1.0/posts/')
     return await response.json()
 }
 

@@ -1,4 +1,5 @@
 import random
+import requests
 
 post_list_comment = [
     {
@@ -40,32 +41,6 @@ post_list_comment = [
             },
         ]
     },
-    {
-        'id': 63,
-        'comments': [
-            {
-                'id': 1,
-                'content': 'Comment 1'
-            },
-            {
-                'id': 2,
-                'content': 'Comment 2'
-            },
-        ]
-    },
-    {
-        'id': 47,
-        'comments': [
-            {
-                'id': 1,
-                'content': 'Comment 1'
-            },
-            {
-                'id': 2,
-                'content': 'Comment 2'
-            },
-        ]
-    },
 ]
 
 
@@ -83,12 +58,10 @@ def create_post_comments(post_id, comment_content):
             post_comments.setdefault('comments', [])
             post_comments['comments'].append(comment_content)
             break
-    else:
-        new_post = {
-            'id': post_id,
-            'comments': [
-                comment_content
-            ]
-        }
-        post_list_comment.append(new_post)
+    data = {
+        'event_type': 'CommentCreated',
+        'data': comment_content,
+        'post_id': post_id,
+    }
+    requests.post('http://localhost:5005/events/', json=data)
     return comment_content

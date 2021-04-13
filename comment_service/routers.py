@@ -12,8 +12,3 @@ def comments_api(post_id):
             return jsonify({'message': 'Content fields is required'}), 400
         create_comment = create_post_comments(post_id, new_comment_data)
         return jsonify(create_comment), 201
-
-    comments = get_post_comments(post_id)
-    # if not comments:
-    #     return jsonify({'message': 'Not found'}), 404
-    return jsonify(comments), 200
